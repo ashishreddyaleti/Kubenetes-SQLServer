@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+   name: sqlserver1node1
+   namespace: sqlserver
+   labels:
+     app: sql11
+spec:
+  storageClassName: localvolumes
+  #claimRef:
+   # name: sqlserver1node1
+    #namespace: sqlserver     (Use Only when you want to reserve Persistent Volume to a particular VolumeClaim)
+  capacity:
+    storage: 300Gi
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: /mnt/vdc       (Create a Mount path the workernode) 
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname    (you should have label on the node as  kubernetes.io/hostname=kubernetes-worker1.com
+          operator: In
+          values:
+          - kubernetes-worker1.com   
