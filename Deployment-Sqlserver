@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sqlserver1node1
-  namespace: sqlserver
+  name: sqlserver
+  namespace: default
   labels:
     app: sql11
 spec:
